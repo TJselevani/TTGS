@@ -1,0 +1,314 @@
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top " id="menu">    
+    <div>
+      <ul>
+        <li><a href="/allocateUnits"><p>Unit Assignment</p></a></li>
+        <!-- <li><a href="/allocateClassrooms"><p>Allocate Classroom</p></a></li> -->
+      </ul>
+    </div>
+  </nav>
+  <div>
+    <a href="/admin">Back</a>
+  </div>
+
+  
+<!-- ************************************************ Semester 1 *************************************************************** -->
+<div id=allotedsubjectstable>
+  <table>
+    <caption><strong>Year 1 Semester 1 Units alloted to Lecturers</strong></caption>
+    <tr>
+        <th width="150">Unit Code</th>
+        <th width=420>Unit Title</th>
+        <!-- <th width="170">Lecturer's ID</th> -->
+        <th width="330">Lecturer's Name</th>
+        <th>Classroom</th>
+        <th>Day</th>
+        <th>Period</th>
+        <th width="40">Action</th>
+    </tr>
+    <% 
+    timetableData.forEach((semester) => {
+      if(semester.semester == 1){
+        semester.unitss.forEach((unit) => { %>
+        <tr>
+            <td><%= unit.unitCode %></td>
+            <td><%= unit.unitName %></td>
+            <td><%= unit.unitLecturer %></td>
+            <td><%= unit.classroom %></td>
+            <td><%= unit.day %></td>
+            <td><%= unit.period %></td>
+            <td>
+            <button>DEALLOT</button>
+            </td>
+        </tr>
+        <% });
+      }
+    }); %>
+  </table>
+</div>
+<br>
+<br>
+
+<!-- ************************************************ Semester 2 *************************************************************** -->
+<div id=allotedsubjectstable>
+  <table>
+    <caption><strong>Year 1 Semester 2 Units alloted to Lecturers</strong></caption>
+    <tr>
+        <th width="150">Unit Code</th>
+        <th width=420>Unit Title</th>
+        <!-- <th width="170">Lecturer's ID</th> -->
+        <th width="330">Lecturer's Name</th>
+        <th>Classroom</th>
+        <th>Day</th>
+        <th>Period</th>
+        <th width="40">Action</th>
+    </tr>
+    <% 
+    timetableData.forEach((semester) => {
+      if(semester.semester == 2){
+        semester.unitss.forEach((unit) => { %>
+        <tr>
+            <td><%= unit.unitCode %></td>
+            <td><%= unit.unitName %></td>
+            <td><%= unit.unitLecturer %></td>
+            <td><%= unit.classroom %></td>
+            <td><%= unit.day %></td>
+            <td><%= unit.period %></td>
+            <td>
+            <button>DEALLOT</button>
+            </td>
+        </tr>
+        <% });
+      }
+    }); %>
+  </table>
+</div>
+<br>
+<br>
+
+<!-- ************************************************ Semester 3 *************************************************************** -->
+<div id=allotedsubjectstable>
+  <table>
+    <caption><strong>Year 2 Semester 1 Units alloted to Lecturers</strong></caption>
+    <tr>
+        <th width="150">Unit Code</th>
+        <th width=420>Unit Title</th>
+        <!-- <th width="170">Lecturer's ID</th> -->
+        <th width="330">Lecturer's Name</th>
+        <th>Classroom</th>
+        <th>Day</th>
+        <th>Period</th>
+        <th width="40">Action</th>
+    </tr>
+    <% 
+    timetableData.forEach((semester) => {
+      if(semester.semester == 3){
+        semester.unitss.forEach((unit) => { %>
+        <tr>
+            <td><%= unit.unitCode %></td>
+            <td><%= unit.unitName %></td>
+            <td><%= unit.unitLecturer %></td>
+            <td><%= unit.classroom %></td>
+            <td><%= unit.day %></td>
+            <td><%= unit.period %></td>
+            <td>
+            <button>DEALLOT</button>
+            </td>
+        </tr>
+        <% });
+      }
+    }); %>
+  </table>
+</div>
+<br>
+<br>
+
+<!-- ************************************************ Semester 4 *************************************************************** -->
+<div id=allotedsubjectstable>
+  <table>
+    <caption><strong>Year 2 Semester 2 Units alloted to Lecturers</strong></caption>
+    <tr>
+        <th width="150">Unit Code</th>
+        <th width=420>Unit Title</th>
+        <!-- <th width="170">Lecturer's ID</th> -->
+        <th width="330">Lecturer's Name</th>
+        <th>Classroom</th>
+        <th>Day</th>
+        <th>Period</th>
+        <th width="40">Action</th>
+    </tr>
+    <% 
+    timetableData.forEach((semester) => {
+      if(semester.semester == 4){
+        semester.unitss.forEach((unit) => { %>
+        <tr>
+            <td><%= unit.unitCode %></td>
+            <td><%= unit.unitName %></td>
+            <td><%= unit.unitLecturer %></td>
+            <td><%= unit.classroom %></td>
+            <td><%= unit.day %></td>
+            <td><%= unit.period %></td>
+            <td>
+            <button>DEALLOT</button>
+            </td>
+        </tr>
+        <% });
+      }
+    }); %>
+  </table>
+</div>
+<br>
+<br>
+
+<!-- ************************************************ Semester 5 *************************************************************** -->
+<div id=allotedsubjectstable>
+  <table>
+    <caption><strong>Year 3 Semester 1 Units alloted to Lecturers</strong></caption>
+    <tr>
+        <th width="150">Unit Code</th>
+        <th width=420>Unit Title</th>
+        <!-- <th width="170">Lecturer's ID</th> -->
+        <th width="330">Lecturer's Name</th>
+        <th>Classroom</th>
+        <th>Day</th>
+        <th>Period</th>
+        <th width="40">Action</th>
+    </tr>
+    <% 
+    timetableData.forEach((semester) => {
+      if(semester.semester == 5){
+        semester.unitss.forEach((unit) => { %>
+        <tr>
+            <td><%= unit.unitCode %></td>
+            <td><%= unit.unitName %></td>
+            <td><%= unit.unitLecturer %></td>
+            <td><%= unit.classroom %></td>
+            <td><%= unit.day %></td>
+            <td><%= unit.period %></td>
+            <td>
+            <button>DEALLOT</button>
+            </td>
+        </tr>
+        <% });
+      }
+    }); %>
+  </table>
+</div>
+<br>
+<br>
+
+<!-- ************************************************ Semester 6 *************************************************************** -->
+<div id=allotedsubjectstable>
+  <table>
+    <caption><strong>Year 3 Semester 2 Units alloted to Lecturers</strong></caption>
+    <tr>
+        <th width="150">Unit Code</th>
+        <th width=420>Unit Title</th>
+        <!-- <th width="170">Lecturer's ID</th> -->
+        <th width="330">Lecturer's Name</th>
+        <th>Classroom</th>
+        <th>Day</th>
+        <th>Period</th>
+        <th width="40">Action</th>
+    </tr>
+    <% 
+    timetableData.forEach((semester) => {
+      if(semester.semester == 6){
+        semester.unitss.forEach((unit) => { %>
+        <tr>
+            <td><%= unit.unitCode %></td>
+            <td><%= unit.unitName %></td>
+            <td><%= unit.unitLecturer %></td>
+            <td><%= unit.classroom %></td>
+            <td><%= unit.day %></td>
+            <td><%= unit.period %></td>
+            <td>
+            <button>DEALLOT</button>
+            </td>
+        </tr>
+        <% });
+      }
+    }); %>
+  </table>
+</div>
+<br>
+<br>
+
+<!-- ************************************************ Semester 7 *************************************************************** -->
+<div id=allotedsubjectstable>
+  <table>
+    <caption><strong>Year 4 Semester 1 Units alloted to Lecturers</strong></caption>
+    <tr>
+        <th width="150">Unit Code</th>
+        <th width=420>Unit Title</th>
+        <!-- <th width="170">Lecturer's ID</th> -->
+        <th width="330">Lecturer's Name</th>
+        <th>Classroom</th>
+        <th>Day</th>
+        <th>Period</th>
+        <th width="40">Action</th>
+    </tr>
+    <% 
+    timetableData.forEach((semester) => {
+      if(semester.semester == 7){
+        semester.unitss.forEach((unit) => { %>
+        <tr>
+            <td><%= unit.unitCode %></td>
+            <td><%= unit.unitName %></td>
+            <td><%= unit.unitLecturer %></td>
+            <td><%= unit.classroom %></td>
+            <td><%= unit.day %></td>
+            <td><%= unit.period %></td>
+            <td>
+            <button>DEALLOT</button>
+            </td>
+        </tr>
+        <% });
+      }
+    }); %>
+  </table>
+</div>
+<br>
+<br>
+
+<!-- ************************************************ Semester 8 *************************************************************** -->
+<div id=allotedsubjectstable>
+  <table>
+    <caption><strong>Year 4 Semester 2 Units alloted to Lecturers</strong></caption>
+    <tr>
+        <th width="150">Unit Code</th>
+        <th width=420>Unit Title</th>
+        <!-- <th width="170">Lecturer's ID</th> -->
+        <th width="330">Lecturer's Name</th>
+        <th>Classroom</th>
+        <th>Day</th>
+        <th>Period</th>
+        <th width="40">Action</th>
+    </tr>
+    <% 
+    timetableData.forEach((semester) => {
+      if(semester.semester == 8){
+        semester.unitss.forEach((unit) => { %>
+        <tr>
+            <td><%= unit.unitCode %></td>
+            <td><%= unit.unitName %></td>
+            <td><%= unit.unitLecturer %></td>
+            <td><%= unit.classroom %></td>
+            <td><%= unit.day %></td>
+            <td><%= unit.period %></td>
+            <td>
+            <button>DEALLOT</button>
+            </td>
+        </tr>
+        <% });
+      }
+    }); %>
+  </table>
+</div>
+<br>
+<br>
+  
+</body>
+</html>

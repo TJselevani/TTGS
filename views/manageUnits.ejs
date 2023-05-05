@@ -1,0 +1,310 @@
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top " id="menu">
+    <h2>Manage Units page</h2>
+  </nav>
+  <a href="/admin">Back</a>
+
+  <%- include('./partials/modal.ejs') %>
+
+  <div id="addlecbtn">
+    <button class="addbtn" id="subjectmanual" style="width: auto;"><a>ADD UNIT</a></button>
+  </div>
+
+<!-- ************************* Semester 1 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 1 SEMESTER 1 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <th width="190">Semester</th>
+          <th width="290">Course</th>
+          <th width="40">Action</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 1) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <td><%= untInfo.semester %></td>
+              <td><%= untInfo.course %></td>
+              <td><a class="delete" data-doc="<%= untInfo._id %>"><button>Delete</button></a></td>
+              <td><button href="">Update</button></td>
+            </tr>
+          <% } else { } %>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <!-- ************************* Semester 2 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 1 SEMESTER 2 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <th width="190">Semester</th>
+          <th width="290">Course</th>
+          <th width="40">Action</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 2) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <td><%= untInfo.semester %></td>
+              <td><%= untInfo.course %></td>
+              <td><a class="delete" data-doc="<%= untInfo._id %>"><button>Delete</button></a></td>
+              <td><button href="">Update</button></td>
+            </tr>
+          <% } else {}%>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <!-- ************************* Semester 3 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 2 SEMESTER 1 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <th width="190">Semester</th>
+          <th width="290">Course</th>
+          <th width="40">Action</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 3) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <td><%= untInfo.semester %></td>
+              <td><%= untInfo.course %></td>
+              <td><a class="delete" data-doc="<%= untInfo._id %>"><button>Delete</button></a></td>
+              <td><button href="">Update</button></td>
+            </tr>
+          <% } else {} %>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <!-- ************************* Semester 4 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 2 SEMESTER 2 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <th width="190">Semester</th>
+          <th width="290">Course</th>
+          <th width="40">Action</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 4) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <td><%= untInfo.semester %></td>
+              <td><%= untInfo.course %></td>
+              <td><a class="delete" data-doc="<%= untInfo._id %>"><button>Delete</button></a></td>
+              <td><button href="">Update</button></td>
+            </tr>
+          <% } else { }%>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <!-- ************************* Semester 5 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 3 SEMESTER 1 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <th width="190">Semester</th>
+          <th width="290">Course</th>
+          <th width="40">Action</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 5) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <td><%= untInfo.semester %></td>
+              <td><%= untInfo.course %></td>
+              <td><a class="delete" data-doc="<%= untInfo._id %>"><button>Delete</button></a></td>
+              <td><button href="">Update</button></td>
+            </tr>
+          <% } else { }%>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <!-- ************************* Semester 6 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 3 SEMESTER 2 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <th width="190">Semester</th>
+          <th width="290">Course</th>
+          <th width="40">Action</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 6) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <td><%= untInfo.semester %></td>
+              <td><%= untInfo.course %></td>
+              <td><a class="delete" data-doc="<%= untInfo._id %>"><button>Delete</button></a></td>
+              <td><button href="">Update</button></td>
+            </tr>
+          <% } else { }%>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <!-- ************************* Semester 7 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 4 SEMESTER 1 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <th width="190">Semester</th>
+          <th width="290">Course</th>
+          <th width="40">Action</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 7) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <td><%= untInfo.semester %></td>
+              <td><%= untInfo.course %></td>
+              <td><a class="delete" data-doc="<%= untInfo._id %>"><button>Delete</button></a></td>
+              <td><button href="">Update</button></td>
+            </tr>
+          <% } else {} %>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <!-- ************************* Semester 8 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 4 SEMESTER 2 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <th width="190">Semester</th>
+          <th width="290">Course</th>
+          <th width="40">Action</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 8) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <td><%= untInfo.semester %></td>
+              <td><%= untInfo.course %></td>
+              <td><a class="delete" data-doc="<%= untInfo._id %>"><button>Delete</button></a></td>
+              <td><button href="">Update</button></td>
+            </tr>
+          <% } else {} %>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <script>
+    // Get the button that opens the modal
+    var addsubjectBtn = document.getElementById("subjectmanual");
+    // var updatesubjectBtn = document.getElementById("unitupt");
+
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    // var modal2 = document.getElementById('myModal2');
+
+    var heading = document.getElementById("popupHead");
+
+    var subjectForm = document.getElementById("addSubjectForm");
+    // var subjectUpdateForm = document.getElementById("updateSubjectForm");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    // var span2 = document.getElementsByClassName("close")[1];
+
+    // When the user clicks the button, open the modal
+
+    addsubjectBtn.onclick = function () 
+    {
+        modal.style.display = "block";
+        heading.innerHTML = "Add Unit Details";
+        subjectForm.style.display = "block";
+        // updateSubjectForm.style.display = "none";
+        // adminForm.style.display = "none";
+    }
+    // updatesubjectBtn.onclick = function () 
+    // {
+    //     modal.style.display = "block";
+    //     heading.innerHTML = "Update Unit Details";
+    //     subjectForm.style.display = "none";
+    //     updateSubjectForm.style.display = "block";
+    //     // adminForm.style.display = "none";
+    // }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+        // adminForm.style.display = "none";
+        subjectForm.style.display = "none";
+        // updateSubjectForm.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+  <script>
+    const del = document.querySelectorAll('a.delete');
+    // console.log(del)
+    del.forEach(delet => {
+
+      delet.addEventListener('click', (e) => {
+      const endpoint = `/deleteUnit/${delet.dataset.doc}`;
+
+      fetch(endpoint, {
+        method: 'DELETE',
+      })
+        .then(response => response.json())
+        .then(data => window.location.href = data.redirect)
+        .catch(err => console.log(err));
+    });
+    })
+  </script>
+</body>
+</html>

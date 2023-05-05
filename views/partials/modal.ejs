@@ -1,0 +1,224 @@
+ <!-- The Modal -->
+ <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times</span>
+            <h2 id="popupHead">Modal Header</h2>
+        </div>
+
+        <div class="modal-body" id="LoginType">
+            
+            <!--Admin Login Form-->
+            <div style="display:none" id="adminForm">
+                <form action="/admin" method="POST">
+                    <div class="form-group">
+                        <label for="adminName">Admin Name</label>                        
+                        <input type="text" class="form-control" id="adminName" name="adminName" placeholder="" required="">
+                        <div class="error"></div>
+                    </div>
+                    <div class="form-group">  
+                        <label for="password">Password</label> 
+                        <input type="password" class="form-control" id="password" name="password" placeholder="" required="">
+                        <div class="error"></div>
+                    </div>
+                    <div class="butt">
+                        <button type="submit" class="btn btn-default" name="LOGIN" value="LOGIN">LOGIN</button>
+                    </div>
+                </form>
+            </div>
+
+            <!--Faculty Login Form-->
+            <div style="display:none" id="facultyForm">
+                <form action="/lecturer" method="POST">
+                    <div class="form-group">
+                        <label for="lecturerId"> Lecturer ID </label>
+                        <input type="text" class="form-control" id="lecturerId" name="lecturerId" placeholder=" e.g. T000" required="">
+                        <div class="error"></div>
+                    </div>
+                    <div class="butt">
+                        <button type="submit" class="btn btn-default" name="LOGIN">LOGIN</button>
+                    </div>
+                </form>
+            </div>
+
+            <!--Add Lecturer Form-->
+            <div class="modal-body" id="EnterTeacher">
+                <div style="display:none" id="addTeacherForm">
+                    <form action="/addLecturer" method="POST">
+                        <div class="form-group">
+                            <label for="teachername">Lecturer's Name</label>
+                            <input type="text" class="form-control" id="teachername" name="name" placeholder="Lecturer's Name" >
+                            <div class="error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="TF">Lecturer ID</label>
+                            <input type="text" class="form-control" id="facultyno" name="lecID" placeholder="Lecturer's ID eg T000">
+                            <div class="error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="teachercontactnumber">Contact No.</label>
+                            <input type="text" class="form-control" id="teachercontactnumber" name="contact" placeholder="07xxxxxxxx">
+                            <div class="error"></div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="teacheremailid">Email Address</label>
+                            <input type="text" class="form-control" id="teacheremailid" name="email" placeholder="example@gmail.com ...">
+                            <div class="error"></div>
+                        </div>
+                        <div align="center">
+                            <input type="submit" class="btn btn-default" name="ADD" value="ADD">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!--Update Lecturer Form-->
+            <div class="modal-body" id="UpdateTeacher">
+                <div style="display:none" id="updateTeacherForm">
+                    <form action=" " method="POST">
+                        <div class="form-group">
+                            <label for="teachername">Update Lecturer's Name</label>
+                            <input type="text" class="form-control" id="teachername" name="name"
+                                    placeholder="Lecturer's Name" value="">
+                                    <div class="error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="TF">Update Lecturer ID</label>
+                            <input type="text" class="form-control" id="facultyno" name="lecID" 
+                                    placeholder="Lecturer's ID eg T000" value="">
+                                    <div class="error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="teachercontactnumber">Update Contact No.</label>
+                            <input type="text" class="form-control" id="teachercontactnumber" name="contact"
+                                    placeholder="07xxxxxxxx" value="">
+                                    <div class="error"></div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for="teacheremailid">Update Email Address</label>
+                            <input type="text" class="form-control" id="teacheremailid" name="email"
+                                    placeholder="example@gmail.com ..." value="">
+                                    <div class="error"></div>
+                        </div>
+                        <div align="center">
+                            <input type="submit" class="btn btn-default" name="ADD" value="UPDATE">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!--Add Unit Form-->
+            <div class="modal-body" id="EnterSubject">
+                <div style="display:none" id="addSubjectForm">
+                    <form action="addUnit" method="POST">
+                        <div class="form-group">
+                            <label for="subjectname">Unit Name</label>
+                            <input type="text" class="form-control" id="subjectname" name="name"
+                                   placeholder="Enter Unit Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="subjectcode">Unit Code</label>
+                            <input type="text" class="form-control" id="subjectcode" name="code" placeholder="eg CCS 2XXX">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subjectsemester">Semester</label>
+                            <select class="form-control" id="subjectsemester" name="semester"style="width: 100%; height: 40px">
+                                <option selected disabled>Select</option>
+                                <option value="1">  YEAR 1 SEM 1</option>
+                                <option value="2">  YEAR 1 SEM 2</option>
+                                <option value="3">  YEAR 2 SEM 1</option>
+                                <option value="4">  YEAR 2 SEM 2</option>
+                                <option value="5">  YEAR 3 SEM 1</option>
+                                <option value="6">  YEAR 3 SEM 2</option>
+                                <option value="7">  YEAR 4 SEM 1</option>
+                                <option value="8">  YEAR 4 SEM 2</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subjectdepartment">Course</label>
+                            <select class="form-control" id="subjectdepartment" name="course" style="width: 100%; height: 40px">
+                                <option selected disabled>Select</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Software Engineering.">Software Engineering</option>
+                            </select>
+                        </div>
+                        <div align="center" class="form-group">
+                            <input type="submit" class="btn btn-default" name="ADD" value="ADD" style="width: 25%;">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!--Update Unit Form-->
+            <div class="modal-body" id="UpdateSubject">
+                <div style="display:none" id="updateSubjectForm">
+                    <form action="addsubjectFormValidation.php" method="POST">
+                        <div class="form-group">
+                            <label for="subjectname">Update Unit Name</label>
+                            <input type="text" class="form-control" id="subjectname" name="name"
+                                   placeholder="Enter Unit Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="subjectcode">Update Unit Code</label>
+                            <input type="text" class="form-control" id="subjectcode" name="code" placeholder="eg CCS 2XXX">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subjectsemester">Update Semester</label>
+                            <select class="form-control" id="subjectsemester" name="semester" style="width: 100%; height: 40px">
+                                <option selected disabled>Select</option>
+                                <option value="1">  YEAR 1 SEM 1</option>
+                                <option value="2">  YEAR 1 SEM 2</option>
+                                <option value="3">  YEAR 2 SEM 1</option>
+                                <option value="4">  YEAR 2 SEM 2</option>
+                                <option value="5">  YEAR 3 SEM 1</option>
+                                <option value="6">  YEAR 3 SEM 2</option>
+                                <option value="7">  YEAR 4 SEM 1</option>
+                                <option value="8">  YEAR 4 SEM 2</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subjectdepartment">Update Course</label>
+                            <select class="form-control" id="subjectdepartment" name="course" style="width: 100%; height: 40px">
+                                <option selected disabled>Select</option>
+                                <option value="Computer Science">Computer Science</option>
+                                <option value="Software Engineering.">Software Engineering</option>
+                            </select>
+                        </div>
+                        <div align="center" class="form-group">
+                            <input type="submit" class="btn btn-default" name="ADD" value="ADD">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+                
+            <!--Add classroom Form-->
+            <div class="modal-body" id="EnterClassroom">
+                <div style="display:none" id="addClassroomForm">
+                    <form action="addClassroom" method="POST">
+                        <div class="form-group">
+                            <label for="classroomname">Name</label>
+                            <input type="text" class="form-control" id="classroomname" name="name"
+                                   placeholder="eg EG 32, EG 30, A04, A09...">
+                        </div>
+                        <div class="form-group">
+                            <label for="classroomcapacity">Capacity</label>
+                            <input type="text" class="form-control" id="classroomcapacity" name="capacity"
+                                   placeholder="eg 40 50 60 70 80 90 100 ...">
+                        </div>
+    
+                        <div align="center">
+                            <input type="submit" class="btn btn-default" name="ADD" value="ADD">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

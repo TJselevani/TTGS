@@ -1,0 +1,97 @@
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top " id="menu">
+    <div class="LOGO1">
+      <img style="width:150px;" src="MMU LOGO.jpg" alt="MMU LOGO" >
+    </div>    
+    <div style="text-align:center">
+      <h1>MULTIMEDIA UNIVERSITY OF KENYA</h1>
+      <h2>Lecturer Page</h2>
+    </div>
+    <div class="LOGO2">
+      <img style="width:150px;" src="MMU LOGO.jpg" alt="MMU LOGO" >
+    </div>
+  </nav>
+
+  <div>
+    <a href="/lecturer">back</a>
+  </div>
+
+  <div style="text-align: center;">
+    <h2 ><%= name %></h1>
+  </div>
+
+<!-- <form action="/select" method="post">
+  <div style="text-align: center;">
+    <button type="submit" class="pick" onclick="getUnits()"> Pick </button>
+  </div>
+</form> -->
+
+<!-- onclick="getUnits()" -->
+<div id="selct">
+    <div  style="background-color: #FFFFFF">
+      <form action="/select" method="POST">
+        <div style="text-align: center;">
+          <button type="submit" class="pick" > Pick </button>
+        </div>
+        <table border="1" cellspacing="3" align="center" id="selecttable">
+            <caption>
+                <strong>
+        
+                </strong>
+            </caption>
+            <tr>
+                <td style="text-align:center; width: 10%;">Check Box</td>
+                <td style="text-align:center">Unit Code</td>
+                <td style="text-align:center">Unit Title</td>
+            </tr>
+            <% unitInfo.forEach(untInfo => { %>
+              <% if(untInfo.isAssigned == false  ) { %>
+              <tr>
+                <td> <input type="checkbox" name="selected[]" value=" <%= untInfo.code %>|<%= untInfo.name %> "> </td>
+                <td>  <%= untInfo.code %> </td>
+                <td>  <%= untInfo.name %> </td>
+              </tr>
+              <% } else { } %>
+            <% }) %>
+        </table>
+      </form>
+    </div>
+</div>
+
+
+<!-- <script>
+  function getUnits()
+  {
+    const grid = document.getElementById("selecttable");
+    const checkboxes = grid.getElementsByTagName("input");
+
+    var unitCode = ''
+    var unitName = ''
+    var selectedUnits = [];
+
+    for(var i = 0; i < checkboxes.length; i++)
+    {
+      if(checkboxes[i].checked)
+      {
+        const row = checkboxes[i].parentNode.parentNode;
+        selectedUnits += " <p> \n </p>";
+        // selectedUnits += row.cells[1].innerHTML + " " + row.cells[2].innerHTML + "<p> \n </p>";
+        unit_Code += row.cells[1].innerHTML
+        unit_Name += row.cells[2].innerHTML
+        selectedUnits += unitCode + " " + unitName + "<p> \n </p>"; 
+        selectedUnits += " <p> \n </p>";
+      }
+    }
+    document.write("<p> You have selected: " + selectedUnits + "</p>");
+    // alert(selectedUnits);
+    return {unit_Code, unit_Name}
+  }
+</script> -->
+
+
+  <%- include('./partials/footer.ejs') %>
+</body>
+</html>

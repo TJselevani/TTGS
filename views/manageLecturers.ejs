@@ -1,0 +1,114 @@
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top " id="menu">
+    <h2>Manage Lecturers Page</h2>
+  </nav>
+  <a href="/admin">Back</a>
+
+  <%- include('./partials/modal.ejs') %>
+
+  <div id="addlecbtn">
+    <button class="addbtn" id="teachermanual"><a>ADD LECTURER</a></button>
+  </div>
+
+  <div id=teacherstable>
+    <table>
+      <caption><strong>Lecturer's Details </strong></caption>
+      <tr>
+          <th width="150">Lecturer's ID</th>
+          <th width=300>Lecturer's Name</th>
+          <th width="190">Contact No.</th>
+          <th width="290">Email Address</th>
+          <th width="40">Action</th>
+          <th width="40">Action</th>
+      </tr>
+      <tbody>
+      <% lecturerInfo.forEach(lecInfo => { %>
+        <tr>
+          <td><%= lecInfo.lecID %></td>
+          <td><%= lecInfo.name %></td>
+          <td><%= lecInfo.contact %></td>
+          <td><%= lecInfo.email %></td>
+          <td><a class="delete" data-doc="<%= lecInfo._id %>"><button>Delete</button></a></td>
+          <td><a><button>Update</button></a></td>
+        </tr>
+      <% }) %>
+      </tbody>
+  </table>
+  </div>
+
+  <script>
+    // Get the button that opens the modal
+    var addteacherBtn = document.getElementById("teachermanual");
+    // var updateteacherBtn = document.getElementById("update");
+
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    // var modal2 = document.getElementById('myModal2');
+
+    var heading = document.getElementById("popupHead");
+
+    var facultyForm = document.getElementById("addTeacherForm");
+    // var facultyUpdateForm = document.getElementById("updateTeacherForm");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    // var span2 = document.getElementsByClassName("close")[1];
+   
+    // When the user clicks the button, open the modal
+    addteacherBtn.onclick = function () 
+    {
+        modal.style.display = "block";
+        heading.innerHTML = "Add Lecturer Details";
+        facultyForm.style.display = "block";
+        facultyUpdateForm.style.display = "none";
+        //adminForm.style.display = "none";
+    }
+
+    // updateteacherBtn.onclick = function () 
+    // {
+    //     modal.style.display = "block";
+    //     heading.innerHTML = "Update Lecturer Details";
+    //     facultyUpdateForm.style.display = "block";
+    //     facultyForm.style.display = "none";
+    //     //adminForm.style.display = "none";
+    // }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () 
+    {
+        modal.style.display = "none";
+        facultyForm.style.display = "none";
+        facultyUpdateForm.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) 
+    {
+        if (event.target == modal) 
+        {
+            modal.style.display = "none";
+        }
+    }
+
+</script>
+
+<script>
+  const del = document.querySelectorAll('a.delete');
+  console.log(del)
+  del.forEach(delet => {
+
+    delet.addEventListener('click', (e) => {
+    const endpoint = `/deleteLecturer/${delet.dataset.doc}`;
+
+    fetch(endpoint, {
+      method: 'DELETE',
+    })
+      .then(response => response.json())
+      .then(data => window.location.href = data.redirect)
+      .catch(err => console.log(err));
+  });
+  })
+</script>
+</body>
+</html>

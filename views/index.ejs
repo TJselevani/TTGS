@@ -1,0 +1,196 @@
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+  <nav>
+    <div class="LOGO1">
+        <img style="width:150px;" src="MMU LOGO.jpg" alt="MMU LOGO" >
+    </div>
+  
+    <div>
+      <h1 class="tth1">MULTIMEDIA UNIVERSITY OF KENYA</h1>
+      <h2 class="tth2">Timetable Generating System</h2>
+    </div>
+
+    <div class="LOGO2">
+      <img style="width:150px;" src="MMU LOGO.jpg" alt="MMU LOGO" >
+    </div>
+  </nav>
+
+  <%- include('./partials/modal.ejs') %>
+
+  
+  <!-- <div class="Homee">
+    <a id="adminLoginBtn"><img style="width:auto; position: absolute;" src="user.png" alt="MMU LOGO" > <button style="position: relative;"> Admin </button> </a>
+    <a id="teacherLoginBtn"><img style="width:auto; position: absolute;" src="user.png" alt="MMU LOGO" > <button style="position: relative;"> Lecturer</button> </a>
+    <a href="/student"><img style="width:auto; position: absolute;" src="user.png" alt="MMU LOGO" > <button style="position: relative;"> Student</button> </a>
+      
+  </div> -->
+  <div class="Homee">
+    <button id="adminLoginBtn"><a>Admin</a></button>
+    <button id="teacherLoginBtn"><a>Lecturer</a></button>
+    <button><a href="/student">Student</a></button>
+      
+  </div>
+  <%- include('./partials/footer.ejs') %>
+
+  <script>
+    // Get the modal
+    var modal = document.getElementById('myModal');
+    // Get the button that opens the modal
+    var teacherLoginBtn = document.getElementById("teacherLoginBtn");
+    var adminLoginBtn = document.getElementById("adminLoginBtn");
+    var heading = document.getElementById("popupHead");
+    var facultyForm = document.getElementById("facultyForm");
+    var adminForm = document.getElementById("adminForm");
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    adminLoginBtn.onclick = function () 
+    {
+        modal.style.display = "block";
+        heading.innerHTML = "Admin Login";
+        adminForm.style.display = "block";
+        facultyForm.style.display = "none";
+
+        // admiForm.addEventListener('submit', e => 
+        // {
+        //   e.preventDefault();
+        //   validateInputs();
+        // });
+
+        // const setError = (element, message) => 
+        // {
+        //   const formGroup = element.parentElement;
+        //   const errorDisplay = formGroup.querySelector('.error');
+
+        //   errorDisplay.innerText = message;
+        //   formGroup.classList.add('error');
+        //   formGroup.classList.remove('success')
+        // }
+
+        // const setSuccess = element => 
+        // {
+        //   const formGroup = element.parentElement;
+        //   const errorDisplay = formGroup.querySelector('.error');
+
+        //   errorDisplay.innerText = '';
+        //   formGroup.classList.add('success');
+        //   formGroup.classList.remove('error');
+        // };
+
+        // const validateInputs = () => 
+        // {
+        //   const adminNameValue = adminName.value.trim();
+        //   const passwordValue = passwrd.value.trim();
+
+        //   if(adminNameValue === '') {
+        //       setError(username, 'Admin Name is required');
+        //   } else {
+        //       setSuccess(username);
+        //   }
+
+        //   if(passwordValue === '') {
+        //       setError(password, 'Password is required');
+        //   } else if (passwordValue.length < 8 ) {
+        //       setError(password, 'Password must be at least 8 characters.')
+        //   } else {
+        //       setSuccess(password);
+        //   }
+
+        // };
+    }
+    teacherLoginBtn.onclick = function () 
+    {
+        modal.style.display = "block";
+        heading.innerHTML = "Lecturer Login";
+        facultyForm.style.display = "block";
+        adminForm.style.display = "none";
+    }
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () 
+    {
+        modal.style.display = "none";
+        adminForm.style.display = "none";
+        facultyForm.style.display = "none";
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) 
+    {
+        if (event.target == modal) 
+        {
+            modal.style.display = "none";
+        }
+    }
+
+// const adminForm = document.getElementById('adminForm');
+// const adminName = document.getElementById('adminName');
+// const passwrd = document.getElementById('password');
+
+// const facultyForm = document.getElementById('facultyForm');
+// const lecturerId = document.getElementById('lecturerId');
+
+// admiForm.addEventListener('submit', e => {
+//     e.preventDefault();
+
+//     validateInputs();
+// });
+
+// facultyForm.addEventListener('submit', e => {
+//     e.preventDefault();
+
+//     validateInputs();
+// });
+
+// const setError = (element, message) => {
+//     const formGroup = element.parentElement;
+//     const errorDisplay = formGroup.querySelector('.error');
+
+//     errorDisplay.innerText = message;
+//     formGroup.classList.add('error');
+//     formGroup.classList.remove('success')
+// }
+
+// const setSuccess = element => {
+//     const formGroup = element.parentElement;
+//     const errorDisplay = formGroup.querySelector('.error');
+
+//     errorDisplay.innerText = '';
+//     formGroup.classList.add('success');
+//     formGroup.classList.remove('error');
+// };
+
+// const validateInputs = () => {
+//     const adminNameValue = adminName.value.trim();
+//     const lecturerIdValue = lecturerId.value.trim();
+//     const passwordValue = passwrd.value.trim();
+
+//     if(adminNameValue === '') {
+//         setError(username, 'Admin Name is required');
+//     } else {
+//         setSuccess(username);
+//     }
+
+//     if(lecturerIdValue === '') {
+//         setError(username, 'Lecturer ID is required');
+//     } else {
+//         setSuccess(username);
+//     }
+
+//     if(passwordValue === '') {
+//         setError(password, 'Password is required');
+//     } else if (passwordValue.length < 8 ) {
+//         setError(password, 'Password must be at least 8 characters.')
+//     } else {
+//         setSuccess(password);
+//     }
+
+// };
+
+
+
+
+
+</script>
+</body>
+</html>

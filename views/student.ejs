@@ -1,0 +1,169 @@
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+  <nav>
+    <div class="LOGO1">
+      <img style="width:150px;" src="MMU LOGO.jpg" alt="MMU LOGO" >
+    </div>
+
+    <div style="text-align:center">
+      <h1>MULTIMEDIA UNIVERSITY OF KENYA</h1>
+      <h2>Student page</h2>
+    </div>
+
+    <div class="LOGO2">
+      <img style="width:150px;" src="MMU LOGO.jpg" alt="MMU LOGO" >
+    </div>
+  </nav class="navbar navbar-inverse navbar-fixed-top " id="menu">
+
+  <div class="flex-container">
+    <div class="left-btn">
+      <a href="/">Logout</a>
+    </div>
+    <div class="right-btn">
+      <a id="downloadButton">Download Timetable</a>
+    </div>
+  </div>
+
+  <form action="/student-timetable" method="POST">
+    <div align="center" style="margin-top: 20px">
+        <select name="semester" class="list-group-item" style="width: 100%; height: 40px;">
+            <option selected disabled>Select Semester/Year of Study</option>
+            <option value="1">  YEAR 1 SEM 1</option>
+            <option value="2">  YEAR 1 SEM 2</option>
+            <option value="3">  YEAR 2 SEM 1</option>
+            <option value="4">  YEAR 2 SEM 2</option>
+            <option value="5">  YEAR 3 SEM 1</option>
+            <option value="6">  YEAR 3 SEM 2</option>
+            <option value="7">  YEAR 4 SEM 1</option>
+            <option value="8">  YEAR 4 SEM 2</option>
+        </select>
+        <button type="submit" id="viewsemester" class="btn btn-success btn-lg" style="margin-top: 5px">VIEW TIMETABLE
+        </button>
+    </div>
+</form>
+
+  <div id="TT">
+    <div  style="background-color: #FFFFFF">
+      <table border="1" cellspacing="3" align="center" id="timetable">
+        <caption>
+            <strong><br><br>
+              
+            </strong>
+        </caption>
+        <tr>
+          <td style="text-align:center">WEEKDAYS</td>
+          <td style="text-align:center">07:00-10:00</td>
+          <td style="text-align:center">10:00-01:00</td>
+          <td style="text-align:center">02:00-04:00</td>
+        </tr>
+        <% const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+        daysOfWeek.forEach(day => {
+          const periods = timetableData.filter(ttInfo => ttInfo.day === day);
+          %>
+          <tr>
+            <td><%= day %></td>
+            <% for (let i = 1; i <= 3; i++) {
+                 const period = periods.find(ttInfo => ttInfo.period === i);
+                 const unitCode = period ? period.unitCode : '-';
+                 const unitName = period ? period.unitName : '-';
+                 const unitLecturer = period ? period.unitLecturer : '-';
+                 const classroom = period ? period.classroom : '-';
+                 %>
+                 <td>
+                   <%= unitCode %> <%= unitName %>
+                   <%= unitLecturer %>
+                   <%= classroom %>
+                 </td>
+            <% } %>
+          </tr>
+        <% }) %>
+      </table>
+      <p align="center">GENERATED USING TIMETABLE MANAGEMENT SYSTEM FOR COMPUTER SCIENCE COURSE, MMU</p>
+
+  </div>
+  </div>
+  <script>
+    document.getElementById('downloadButton').addEventListener('click', () => {
+      let csvContent = "data:text/csv;charset=utf-8,";
+  
+      // Add column headers
+      csvContent += "Day,07:00-10:00,10:00-13:00,14:00-16:00\r\n";
+  
+      // Loop through each row and column
+      let rows = document.querySelectorAll("table tr");
+      rows.forEach((row) => {
+        let cols = row.querySelectorAll("td");
+        let rowData = [];
+  
+        cols.forEach((col) => {
+          rowData.push(col.textContent);
+        });
+  
+        // Concatenate the row data with a comma separator
+        csvContent += rowData.join(",") + "\r\n";
+      });
+  
+      // Create a download link and trigger a click event to download the CSV file
+      let encodedUri = encodeURI(csvContent);
+      let link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "timetable.csv");
+      document.body.appendChild(link);
+      link.click();
+    });
+  </script>
+  
+  <!-- <script>
+    document.getElementById('downloadButton').addEventListener('click', () => {
+      let csvContent = "data:text/csv;charset=utf-8,";
+      let rows = document.querySelectorAll("table tr");
+  
+      rows.forEach( (row) => {
+        let cols = row.querySelectorAll("td");
+        let rowData = [];
+  
+        cols.forEach( (col) => {
+          rowData.push(col.textContent.trim());
+        });
+  
+        csvContent += rowData.join(",") + "\r\n";
+      });
+  
+      let encodedUri = encodeURI(csvContent);
+      let link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "timetable.csv");
+      document.body.appendChild(link);
+      link.click();
+    });
+  </script> -->
+
+  <!-- <script>
+    document.getElementById('downloadButton').addEventListener('click', () => {
+      let csvContent = "data:text/csv;charset=utf-8,";
+      let rows = document.querySelectorAll("table tr");
+  
+      rows.forEach( (row) => {
+        let cols = row.querySelectorAll("td");
+        let rowData = [];
+  
+        cols.forEach( (col) => {
+          rowData.push(col.textContent);
+        });
+  
+        csvContent += rowData.join(",") + "\r\n";
+      });
+  
+      let encodedUri = encodeURI(csvContent);
+      let link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "timetable.csv");
+      document.body.appendChild(link);
+      link.click();
+    });
+  </script> -->
+  
+  <%- include('./partials/footer.ejs') %>
+</body>
+</html>

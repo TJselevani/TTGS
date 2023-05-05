@@ -1,0 +1,94 @@
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+  
+  <nav class="navbar navbar-inverse navbar-fixed-top " id="menu">
+    <h2>Manage Classrooms Page</h2>
+  </nav>
+  <a href="/admin">Back</a>
+
+  <%- include('./partials/modal.ejs') %>
+
+  <div id="addlecbtn">
+    <button class="addbtn" id="classroommanual"><a>ADD CLASSROOM</a></button>
+  </div>
+
+  <div id=classroomstable>
+    <table >
+      <caption><strong>AVAILABLE CLASSROOMS</strong></caption>
+      <tr>
+        <th width="100">Name</th>
+        <th width="50">Capacity</th>
+        <th width="60">Action</th>
+        <th width="60">Action</th>
+      </tr>
+      <% classroomInfo.forEach(classInfo => { %>
+      <tr>
+        <td><%= classInfo.name %></td>
+        <td><%= classInfo.capacity %></td>
+        <td><a class="delete" data-doc="<%= classInfo._id %>"><button>Delete</button></a></td>
+        <td><button>Update</button></td>
+      </tr>
+      <% }) %>
+    </table>
+  </div>
+
+  <script>
+    const del = document.querySelectorAll('a.delete');
+    console.log(del)
+    del.forEach(delet => {
+
+      delet.addEventListener('click', (e) => {
+      const endpoint = `/deleteClassroom/${delet.dataset.doc}`;
+
+      fetch(endpoint, {
+        method: 'DELETE',
+      })
+        .then(response => response.json())
+        .then(data => window.location.href = data.redirect)
+        .catch(err => console.log(err));
+    });
+    })
+  </script>
+  
+<script>
+  // Get the modal
+  var modal = document.getElementById('myModal');
+
+  // Get the button that opens the modal
+  var addclassroomBtn = document.getElementById("classroommanual");
+  var heading = document.getElementById("popupHead");
+  var classroomForm = document.getElementById("addClassroomForm");
+  // Get the <span> element that closes the modal
+  var span = document.getElementsByClassName("close")[0];
+
+  // When the user clicks the button, open the modal
+
+  addclassroomBtn.onclick = function () 
+  {
+      modal.style.display = "block";
+      heading.innerHTML = "Add Classroom Details";
+      classroomForm.style.display = "block";
+      //adminForm.style.display = "none";
+
+
+  }
+
+  // When the user clicks on <span> (x), close the modal
+  span.onclick = function () {
+      modal.style.display = "none";
+      //adminForm.style.display = "none";
+      classroomForm.style.display = "none";
+
+  }
+
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function (event) {
+      if (event.target == modal) {
+          modal.style.display = "none";
+      }
+  }
+</script>
+
+</body>
+</html>

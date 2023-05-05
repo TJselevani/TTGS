@@ -1,0 +1,183 @@
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+
+<!-- <script>
+  $(document).ready( () => {
+      // Get the selected units from the URL query string
+      const selectedUnits = new URLSearchParams(window.location.search).get('selected');
+
+      // If selectedUnits is not empty, split the string and display the units
+      if (selectedUnits) {
+          const units = selectedUnits.split(',');
+          units.forEach(function(unit) {
+              $('ul').append('<li>' + unit + '</li>');
+          });
+      }
+  });
+</script> -->
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top " id="menu">
+    <div class="LOGO1">
+      <img style="width:150px;" src="MMU LOGO.jpg" alt="MMU LOGO" >
+    </div>    
+    <div style="text-align:center">
+      <h1>MULTIMEDIA UNIVERSITY OF KENYA</h1>
+      <h2>Lecturer Page</h2>
+    </div>
+    <div class="LOGO2">
+      <img style="width:150px;" src="MMU LOGO.jpg" alt="MMU LOGO" >
+    </div>
+  </nav>
+  <!-- <span> -->
+
+  <div class="flex-container">
+    <div class="left-btn">
+      <a href="/">Logout</a>
+    </div>
+  
+  <% if(message) { %>
+    <script>
+      alert('<%= message %>')
+    </script>
+  <% } %>  
+
+    <div class="right-btn">
+      <a href="/select"class="slct">Select Units</a>
+    </div>
+  </div>
+
+    <!-- Table to show the units the lecturer chose -->
+<div id="selct">
+  <div  style="background-color: #FFFFFF">
+      <table border="1" cellspacing="3" align="center" id="selecttable">
+          <caption>
+              <strong>
+                  <h1>Units Taken by <%= name %></h1>
+              </strong>
+          </caption>
+          <tr>
+              <td style="text-align:center">Unit Code</td>
+              <td style="text-align:center">Unit Name</td>
+              <td style="text-align:center">Action</td>
+          </tr>
+          <% docs.forEach(doc => { %>
+            <tr>
+              <!-- <td>  </td> -->
+              <td>  <%= doc.unitCode %> </td>
+              <td>  <%= doc.unitName %> </td>
+              <td><a class="drop" data-doc="<%= doc._id %>"><button>Drop</button> </a></td>
+            </tr>
+          <% }) %>
+      </table>
+  </div>
+</div>
+<br>
+<!-- <h2>Your Units:</h2>
+<% if (docs && docs.length > 0) { %>
+  <ul>
+    <% docs.forEach((unit) => { %>
+      <li><%= unit %></li>
+    <% }); %>
+  </ul>
+<% } else { %>
+  <p>No units found.</p>
+<% } %> -->
+<br><br>
+<div class="flex-container">
+  <div class="left-btn">
+  </div>
+
+  <div class="right-btn">
+    <a id="downloadButton"class="slct">Download Timetable</a>
+  </div>
+</div>
+
+</span>
+  <div id="TT">
+    <div  style="background-color: #FFFFFF">
+          
+          <h2 style="text-align: center;">Lecturer Timetable</h2>
+          <% if (timetableData && timetableData.length > 0) { %>
+            <table border="1" cellspacing="3" align="center" id="timetable">
+              <caption>
+                <strong><br><br></strong>
+              </caption>
+              <tr>
+                <td style="text-align:center">SEMESTER</td>
+                <td style="text-align:center">DAY</td>
+                <td style="text-align:center">PERIOD</td>
+                <td style="text-align:center">UNIT CODE</td>
+                <td style="text-align:center">UNIT NAME</td>
+                <td style="text-align:center">UNIT LECTURER</td>
+                <td style="text-align:center">CLASSROOM</td>
+              </tr>
+              <% timetableData.forEach((semester) => {
+                semester.unitss.forEach((unit) => { %>
+                  <tr>
+                    <td><%= semester.semester %></td>
+                    <td><%= unit.day %></td>
+                    <td><%= unit.period %></td>
+                    <td><%= unit.unitCode %></td>
+                    <td><%= unit.unitName %></td>
+                    <td><%= unit.unitLecturer %></td>
+                    <td><%= unit.classroom %></td>
+                  </tr>
+                <% });
+              }); %>
+            </table>
+          <% } else { %>
+            <p>No timetable data found.</p>
+          <% } %>
+    </div>
+  </div>
+
+  <script>
+    const del = document.querySelectorAll('a.drop');
+    // console.log(del)
+    del.forEach(delet => {
+
+      delet.addEventListener('click', (e) => {
+      const endpoint = `/dropUnit/${delet.dataset.doc}`;
+
+      fetch(endpoint, {
+        method: 'DELETE',
+      })
+        .then(response => response.json())
+        .then(data => window.location.href = data.redirect)
+        .catch(err => console.log(err));
+    });
+    })
+  </script>
+
+<script>
+  document.getElementById('downloadButton').addEventListener('click', () => {
+    let csvContent = "data:text/csv;charset=utf-8,";
+    let rows = document.querySelectorAll("table tr");
+
+    rows.forEach( (row) => {
+      let cols = row.querySelectorAll("td, th");
+      let rowData = [];
+
+      cols.forEach( (col) => {
+        rowData.push(col.textContent);
+      });
+
+      csvContent += rowData.join(",") + "\r\n";
+    });
+
+    let encodedUri = encodeURI(csvContent);
+    let link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "timetable.csv");
+    document.body.appendChild(link);
+    link.click();
+  });
+</script>
+
+<br>
+<p align="center">GENERATED USING TIMETABLE MANAGEMENT SYSTEM FOR COMPUTER SCIENCE COURSE, MMU</p>
+  
+  <%- include('./partials/footer.ejs') %>
+</body>
+</html>

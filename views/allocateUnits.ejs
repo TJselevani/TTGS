@@ -1,0 +1,228 @@
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top " id="menu">    
+    <div>
+        <h2 >Unit - Lecturer Assignment Page</h2>
+    </div>
+  </nav>
+  <div>
+    <a href="/allocation">Back</a>
+  </div>
+
+
+<br><br><br><br>
+<!-- ************************* Semester 1 *********************************** -->
+<div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 1 SEMESTER 1 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <!-- <th width="190">Lecturer ID</th> -->
+          <th width="290">Lecturer Name</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 1) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <!-- <td></td> -->
+              <td><%= untInfo.lecturer %></td>
+              <td><a class="Absolve" data-doc="<%= untInfo._id %>"><button>Absolve</button></a></td>
+            </tr>
+          <% } else { } %>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <!-- ************************* Semester 2 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 1 SEMESTER 2 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <!-- <th width="190">Lecturer ID</th> -->
+          <th width="290">Lecturer Name</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 2) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <!-- <td></td> -->
+              <td><%= untInfo.lecturer %></td>
+              <td><a class="Absolve" data-doc="<%= untInfo._id %>"><button>Absolve</button></a></td>
+            </tr>
+          <% } else {}%>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <!-- ************************* Semester 3 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 2 SEMESTER 1 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <!-- <th width="190">Lecturer ID</th> -->
+          <th width="290">Lecturer Name</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 3) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <!-- <td></td> -->
+              <td><%= untInfo.lecturer %></td>
+              <td><a class="Absolve" data-doc="<%= untInfo._id %>"><button>Absolve</button></a></td>
+            </tr>
+          <% } else {} %>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <!-- ************************* Semester 4 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 2 SEMESTER 2 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <!-- <th width="190">Lecturer ID</th> -->
+          <th width="290">Lecturer Name</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 4) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <!-- <td></td> -->
+              <td><%= untInfo.lecturer %></td>
+              <td><a class="Absolve" data-doc="<%= untInfo._id %>"><button>Absolve</button></a></td>
+            </tr>
+          <% } else { }%>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <!-- ************************* Semester 5 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 3 SEMESTER 1 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <!-- <th width="190">Lecturer ID</th> -->
+          <th width="290">Lecturer Name</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 5) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <!-- <td></td> -->
+              <td><%= untInfo.lecturer %></td>
+              <td><a class="Absolve" data-doc="<%= untInfo._id %>"><button>Absolve</button></a></td>
+            </tr>
+          <% } else { }%>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <!-- ************************* Semester 6 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 3 SEMESTER 2 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <!-- <th width="190">Lecturer ID</th> -->
+          <th width="290">Lecturer Name</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 6) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <!-- <td></td> -->
+              <td><%= untInfo.lecturer %></td>
+              <td><a class="Absolve" data-doc="<%= untInfo._id %>"><button>Absolve</button></a></td>
+            </tr>
+          <% } else { }%>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <!-- ************************* Semester 7 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 4 SEMESTER 1 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <!-- <th width="190">Lecturer ID</th> -->
+          <th width="290">Lecturer Name</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 7) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <!-- <td></td> -->
+              <td><%= untInfo.lecturer %></td>
+              <td><a class="Absolve" data-doc="<%= untInfo._id %>"><button>Absolve</button></a></td>
+            </tr>
+          <% } else {} %>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+
+  <!-- ************************* Semester 8 *********************************** -->
+  <div id=subjectstable>
+    <table >
+      <caption><strong>YEAR 4 SEMESTER 2 Unit's Information</strong></caption>
+      <tr>
+          <th width="150">Unit Code</th>
+          <th width=300>Unit Title</th>
+          <!-- <th width="190">Lecturer ID</th> -->
+          <th width="290">Lecturer Name</th>
+          <th width="40">Action</th>
+      </tr>
+        <% unitInfo.forEach(untInfo => { %>
+          <% if(untInfo.semester == 8) { %>
+            <tr>
+              <td><%= untInfo.code %></td>
+              <td><%= untInfo.name %></td>
+              <!-- <td></td> -->
+              <td><%= untInfo.lecturer %></td>
+              <td><a class="Absolve" data-doc="<%= untInfo._id %>"><button>Absolve</button></a></td>
+            </tr>
+          <% } else {} %>
+        <% }) %>
+    </table>
+  </div>
+  <br><br><br>
+ 
+<br><br><br><br>
+
+
+  
+</body>
+</html>
