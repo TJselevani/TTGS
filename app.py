@@ -1,13 +1,12 @@
-from flask import Flask, request, jsonify, render_template, redirect
+from flask import Flask, jsonify, redirect
 from pulp import *
 import pymongo
 # import mongoose
 
-
 app = Flask(__name__)
 
 # Establish a connection to the MongoDB database
-client = pymongo.MongoClient("mongodb://localhost:27017/")
+client = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
 
 # Select the database and collection
 db = client["TTMS"]
@@ -18,26 +17,26 @@ classroomsCollection = db["classrooms"]
 
 # Define the classes for storing subject, lecturer, and classroom details
 class Unit:
-        def __init__(self, unitCode, unitName, semester, course, lecturer, classroom, substitute):
-            self.unitCode = unitCode
-            self.unitName = unitName
-            self.semester = semester
-            self.course = course
-            self.lecturer = lecturer
-            self.classroom = classroom
-            self.substitute = substitute
+    def __init__(self, unitCode, unitName, semester, course, lecturer, classroom, substitute):
+        self.unitCode = unitCode
+        self.unitName = unitName
+        self.semester = semester
+        self.course = course
+        self.lecturer = lecturer
+        self.classroom = classroom
+        self.substitute = substitute
 
 class Lecturer:
-        def __init__(self, lecturerCode, lecturerName, days, room):
-            self.lecturerCode = lecturerCode
-            self.lecturerName = lecturerName
-            self.days = []
-            self.room = []
+    def __init__(self, lecturerCode, lecturerName, days, room):
+        self.lecturerCode = lecturerCode
+        self.lecturerName = lecturerName
+        self.days = [days]#self.days = []
+        self.room = [room]#self.room = []
 
 class Classroom:
-        def __init__(self, classroomName, classroomCapacity):
-            self.classroomName = classroomName
-            self.classroomCapacity = classroomCapacity
+    def __init__(self, classroomName, classroomCapacity):
+        self.classroomName = classroomName
+        self.classroomCapacity = classroomCapacity
 
 # Retrieve all units from the collection and store them in an array of Unit objects
 def get_units():
@@ -89,11 +88,11 @@ def indexx():
 
 @app.route('/index', methods=['GET'])
 def hello_wrl():
-     return "Flask Server Running xx"
+    return "Flask Server Running xx"
 
 @app.route('/test', methods=['POST'])
 def hello():
-     return jsonify("Hello, Test Server Working")
+    return jsonify("Hello, Test Server Working")
 
 # Define the endpoint for generating the timetable
 @app.route('/timetable', methods=['POST'])
@@ -104,14 +103,14 @@ def generateTimetable():
     classrooms = get_classrooms()
 
     # Get the number of instances of the Unit class
-    num_units = len(units)
+    # num_units = len(units)
 
     # Get the number of instances of the Lecturer class
-    num_lecturers = len(lecturers)
+    # num_lecturers = len(lecturers)
 
     # Get the number of instances of the Lecturer class
-    num_classrooms = len(classrooms)
-    
+    # num_classrooms = len(classrooms)
+
     # Define the variables
     days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
     periods = ['1','2','3']

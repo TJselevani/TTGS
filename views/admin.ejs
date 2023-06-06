@@ -3,26 +3,28 @@
 <body>
   <nav>
     <div class="LOGO1">
-      <img style="width:150px;" src="MMU LOGO.jpg" alt="MMU LOGO" >
+      <img style="width:150px;" src="/images/MMULOGO.jpg" alt="MMU LOGO" >
   </div>   
     <div>
       <h1>MULTIMEDIA UNIVERSITY OF KENYA</h1>
       <h2 class="tth2">Admin page</h2>
       <ul>
-        <li><a href="/manageLecturers">Lecturers</a></li>
-        <li><a href="/manageUnits">Units</a></li>
-        <li><a href="/manageClassrooms">Classrooms</a></li>
-        <li><a href="/allocation">Timetable</a></li>
-        <li><a href="/generateTimetable">Generate</a></li>
+        <li><a href="/admin/manageLecturers">Lecturers</a></li>
+        <li><a href="/admin/manageUnits">Units</a></li>
+        <li><a href="/admin/manageClassrooms">Classrooms</a></li>
+        <li><a href="/admin/allocation">Timetable</a></li>
+        <li><a href="/admin/generateTimetable">Generate</a></li>
       </ul>      
     </div>
     <div class="LOGO2">
-      <img style="width:150px;" src="MMU LOGO.jpg" alt="MMU LOGO" >
+      <img style="width:150px;" src="/images/MMULOGO.jpg" alt="MMU LOGO" >
   </div>
   </nav>
   <div class="flex-container">
     <div class="left-btn">
-      <a href="/">Logout</a>
+      <form action="/logout?_method=DELETE" method="POST">
+        <button type="submit">Log Out</button>
+      </form>
     </div>
     <div class="right-btn">
       <a id="downloadButton" >Download Timetable</a>
@@ -41,7 +43,7 @@
 
   <br>
 
-  <form action="/get-semester" method="POST">
+  <form action="/admin/get-semester" method="POST">
     <div align="center" style="margin-top: 20px">
         <select name="semester" class="list-group-item" style="width: 100%; height: 40px;">
             <option selected disabled>Select Semester/Year of Study</option>

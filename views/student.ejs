@@ -3,7 +3,7 @@
 <body>
   <nav>
     <div class="LOGO1">
-      <img style="width:150px;" src="MMU LOGO.jpg" alt="MMU LOGO" >
+      <img style="width:150px;" src="/images/MMULOGO.jpg" alt="MMU LOGO" >
     </div>
 
     <div style="text-align:center">
@@ -12,20 +12,21 @@
     </div>
 
     <div class="LOGO2">
-      <img style="width:150px;" src="MMU LOGO.jpg" alt="MMU LOGO" >
+      <img style="width:150px;" src="/images/MMULOGO.jpg" alt="MMU LOGO" >
     </div>
   </nav class="navbar navbar-inverse navbar-fixed-top " id="menu">
 
   <div class="flex-container">
     <div class="left-btn">
-      <a href="/">Logout</a>
+       <a href="/">Logout</a>
+      
     </div>
     <div class="right-btn">
       <a id="downloadButton">Download Timetable</a>
     </div>
   </div>
 
-  <form action="/student-timetable" method="POST">
+  <form action="/student/student-timetable" method="POST">
     <div align="center" style="margin-top: 20px">
         <select name="semester" class="list-group-item" style="width: 100%; height: 40px;">
             <option selected disabled>Select Semester/Year of Study</option>
@@ -113,56 +114,6 @@
       link.click();
     });
   </script>
-  
-  <!-- <script>
-    document.getElementById('downloadButton').addEventListener('click', () => {
-      let csvContent = "data:text/csv;charset=utf-8,";
-      let rows = document.querySelectorAll("table tr");
-  
-      rows.forEach( (row) => {
-        let cols = row.querySelectorAll("td");
-        let rowData = [];
-  
-        cols.forEach( (col) => {
-          rowData.push(col.textContent.trim());
-        });
-  
-        csvContent += rowData.join(",") + "\r\n";
-      });
-  
-      let encodedUri = encodeURI(csvContent);
-      let link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "timetable.csv");
-      document.body.appendChild(link);
-      link.click();
-    });
-  </script> -->
-
-  <!-- <script>
-    document.getElementById('downloadButton').addEventListener('click', () => {
-      let csvContent = "data:text/csv;charset=utf-8,";
-      let rows = document.querySelectorAll("table tr");
-  
-      rows.forEach( (row) => {
-        let cols = row.querySelectorAll("td");
-        let rowData = [];
-  
-        cols.forEach( (col) => {
-          rowData.push(col.textContent);
-        });
-  
-        csvContent += rowData.join(",") + "\r\n";
-      });
-  
-      let encodedUri = encodeURI(csvContent);
-      let link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "timetable.csv");
-      document.body.appendChild(link);
-      link.click();
-    });
-  </script> -->
   
   <%- include('./partials/footer.ejs') %>
 </body>

@@ -1,40 +1,28 @@
 <html lang="en">
 <%- include('./partials/head.ejs') %>
 
-<!-- <script>
-  $(document).ready( () => {
-      // Get the selected units from the URL query string
-      const selectedUnits = new URLSearchParams(window.location.search).get('selected');
-
-      // If selectedUnits is not empty, split the string and display the units
-      if (selectedUnits) {
-          const units = selectedUnits.split(',');
-          units.forEach(function(unit) {
-              $('ul').append('<li>' + unit + '</li>');
-          });
-      }
-  });
-</script> -->
-
 <body>
   <nav class="navbar navbar-inverse navbar-fixed-top " id="menu">
     <div class="LOGO1">
-      <img style="width:150px;" src="MMU LOGO.jpg" alt="MMU LOGO" >
+      <img style="width:150px;" src="/images/MMULOGO.jpg" alt="MMU LOGO" >
     </div>    
     <div style="text-align:center">
       <h1>MULTIMEDIA UNIVERSITY OF KENYA</h1>
       <h2>Lecturer Page</h2>
     </div>
     <div class="LOGO2">
-      <img style="width:150px;" src="MMU LOGO.jpg" alt="MMU LOGO" >
+      <img style="width:150px;" src="/images/MMULOGO.jpg" alt="MMU LOGO" >
     </div>
   </nav>
   <!-- <span> -->
 
   <div class="flex-container">
     <div class="left-btn">
-      <a href="/">Logout</a>
+      <form action="/logout?_method=DELETE" method="POST">
+        <button type="submit">Log Out</button>
+      </form>
     </div>
+
   
   <% if(message) { %>
     <script>
@@ -43,7 +31,7 @@
   <% } %>  
 
     <div class="right-btn">
-      <a href="/select"class="slct">Select Units</a>
+      <a href="/lecturer/select" class="slct">Select Units</a>
     </div>
   </div>
 
@@ -61,14 +49,18 @@
               <td style="text-align:center">Unit Name</td>
               <td style="text-align:center">Action</td>
           </tr>
-          <% docs.forEach(doc => { %>
+          <% if(docs){
+          docs.forEach(doc => { %>
             <tr>
               <!-- <td>  </td> -->
               <td>  <%= doc.unitCode %> </td>
               <td>  <%= doc.unitName %> </td>
               <td><a class="drop" data-doc="<%= doc._id %>"><button>Drop</button> </a></td>
             </tr>
-          <% }) %>
+          <% }) }
+          else{ %>
+            <p> Nothing to show </p>
+          <% } %> 
       </table>
   </div>
 </div>
@@ -135,10 +127,10 @@
   <script>
     const del = document.querySelectorAll('a.drop');
     // console.log(del)
-    del.forEach(delet => {
+    del.forEach(d => {
 
-      delet.addEventListener('click', (e) => {
-      const endpoint = `/dropUnit/${delet.dataset.doc}`;
+      d.addEventListener('click', (e) => {
+      const endpoint = `/dropUnit/${d.dataset.doc}`;
 
       fetch(endpoint, {
         method: 'DELETE',

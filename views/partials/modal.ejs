@@ -11,7 +11,7 @@
             
             <!--Admin Login Form-->
             <div style="display:none" id="adminForm">
-                <form action="/admin" method="POST">
+                <form action="/auth/admin" method="POST">
                     <div class="form-group">
                         <label for="adminName">Admin Name</label>                        
                         <input type="text" class="form-control" id="adminName" name="adminName" placeholder="" required="">
@@ -23,14 +23,14 @@
                         <div class="error"></div>
                     </div>
                     <div class="butt">
-                        <button type="submit" class="btn btn-default" name="LOGIN" value="LOGIN">LOGIN</button>
+                        <button type="submit" class="btn btn-default" name="LOGIN">LOGIN</button>
                     </div>
                 </form>
             </div>
 
             <!--Faculty Login Form-->
             <div style="display:none" id="facultyForm">
-                <form action="/lecturer" method="POST">
+                <form action="/auth/lecturer" method="POST">
                     <div class="form-group">
                         <label for="lecturerId"> Lecturer ID </label>
                         <input type="text" class="form-control" id="lecturerId" name="lecturerId" placeholder=" e.g. T000" required="">
@@ -45,7 +45,7 @@
             <!--Add Lecturer Form-->
             <div class="modal-body" id="EnterTeacher">
                 <div style="display:none" id="addTeacherForm">
-                    <form action="/addLecturer" method="POST">
+                    <form action="/admin/addLecturer" method="POST">
                         <div class="form-group">
                             <label for="teachername">Lecturer's Name</label>
                             <input type="text" class="form-control" id="teachername" name="name" placeholder="Lecturer's Name" >
@@ -113,7 +113,7 @@
             <!--Add Unit Form-->
             <div class="modal-body" id="EnterSubject">
                 <div style="display:none" id="addSubjectForm">
-                    <form action="addUnit" method="POST">
+                    <form action="/admin/addUnit" method="POST">
                         <div class="form-group">
                             <label for="subjectname">Unit Name</label>
                             <input type="text" class="form-control" id="subjectname" name="name"
@@ -156,7 +156,7 @@
             <!--Update Unit Form-->
             <div class="modal-body" id="UpdateSubject">
                 <div style="display:none" id="updateSubjectForm">
-                    <form action="addsubjectFormValidation.php" method="POST">
+                    <form action=" " method="POST">
                         <div class="form-group">
                             <label for="subjectname">Update Unit Name</label>
                             <input type="text" class="form-control" id="subjectname" name="name"
@@ -200,7 +200,7 @@
             <!--Add classroom Form-->
             <div class="modal-body" id="EnterClassroom">
                 <div style="display:none" id="addClassroomForm">
-                    <form action="addClassroom" method="POST">
+                    <form action="/admin/addClassroom" method="POST">
                         <div class="form-group">
                             <label for="classroomname">Name</label>
                             <input type="text" class="form-control" id="classroomname" name="name"
