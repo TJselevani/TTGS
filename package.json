@@ -7,7 +7,6 @@
     "start": "nodemon server.js",
     "dev": "concurrently \"nodemon server.js\" \"  & C:/Python311/python.exe c:/tjselevani/TTGS/server.py\"",
     "prog": "concurrently \"nodemon server.js\" \"  \" & C:/Python311/python.exe ${__dirname}/server.py\""
-
   },
   "author": "",
   "license": "ISC",
@@ -31,7 +30,7 @@
     "mongodb": "^5.1.0",
     "mongoose": "^7.3.3",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.21",
+    "nodemon": "^3.1.7",
     "passport": "^0.6.0",
     "passport-custom": "^1.1.1",
     "passport-jwt": "^4.0.1",
