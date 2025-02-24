@@ -18,10 +18,9 @@ classroomsCollection = db["classrooms"]
 DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 PERIODS = ["1", "2", "3"]
 SEMESTERS = ["1", "2", "3", "4", "5", "6", "7", "8"]
-POPULATION_SIZE = 100
+POPULATION_SIZE = 1000
 GENERATIONS = 100
 MUTATION_RATE = 0.1
-
 
 class Unit:
     def __init__(
@@ -29,7 +28,7 @@ class Unit:
     ):
         self.unitCode = unitCode
         self.unitName = unitName
-        self.semester = semester  # Ensure this is a string
+        self.semester = semester
         self.course = course
         self.lecturer = lecturer
         self.classroom = classroom
@@ -44,7 +43,7 @@ def get_units():
         temp = Unit(
             unitCode=unit["code"],
             unitName=unit["name"],
-            semester=str(unit["semester"]),  # Convert to string explicitly
+            semester=str(unit["semester"]),
             course=unit["course"],
             lecturer=unit["lecturer"],
             classroom=[],
@@ -95,7 +94,7 @@ def calculate_fitness(timetable):
 
     fitness_score = 0
 
-    # Check for lecturer clashes
+    # Checking for lecturer clashes
     for day in DAYS:
         for period in PERIODS:
             lecturers_at_time = []
@@ -152,7 +151,6 @@ def genetic_algorithm(units, classrooms):
 
     return best_timetable
 
-
 def crossover(parent1, parent2):
     if not parent1 or not parent2:
         return parent1 or parent2
@@ -182,7 +180,7 @@ def mutate(timetable, classrooms):
 
 @app.route("/", methods=["GET"])
 def index():
-    return redirect("/index", code=302)
+    return redirect("/index", code=200)
 
 
 @app.route("/index", methods=["GET"])
