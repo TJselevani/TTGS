@@ -64,11 +64,16 @@
 <div id="TT">
   <div  style="background-color: #FFFFFF">
     <table border="1" cellspacing="3" align="center" id="timetable">
-        <caption>
-            <strong>
-              
-            </strong>
-        </caption>
+      <caption>
+        <strong>
+          <% if(semester) { %>
+            Timetable for Semester <%= semester %>
+          <% } else { %>
+            Timetable for Semester 1
+          <% } %>
+        </strong>
+      </caption>
+    
         <tr>
           <td style="text-align:center">WEEKDAYS</td>
           <td style="text-align:center">07:00-10:00</td>

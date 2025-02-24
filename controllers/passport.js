@@ -31,7 +31,7 @@ const authenticateLecturer = async (req, done) => {
 }
 
 const getUserById = async(_id) => {
-    console.log("ID that wa serialized ",_id)
+    // console.log("ID that was serialized ",_id)
     try {
         const user = await getLecturerById(_id)
         if(user){  return user}

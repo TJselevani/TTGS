@@ -4,9 +4,11 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js",
-    "dev": "concurrently \"nodemon server.js\" \"  & C:/Python311/python.exe c:/tjselevani/TTGS/server.py\"",
-    "prog": "concurrently \"nodemon server.js\" \"  \" & C:/Python311/python.exe ${__dirname}/server.py\""
+    "start": "nodemon app.js",
+    "activate": "source venv/bin/activate",
+    "dev": "concurrently \"nodemon app.js\" \"python3 app.py\"",
+    "setup-linux": "./setup.sh",
+    "setup-windows": "setup.bat"
   },
   "author": "",
   "license": "ISC",

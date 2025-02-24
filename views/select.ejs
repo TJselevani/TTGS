@@ -31,39 +31,69 @@
 
 <!-- onclick="getUnits()" -->
 <div id="selct">
-    <div  style="background-color: #FFFFFF">
+  <div style="background-color: #FFFFFF">
       <form action="/lecturer/select" method="POST">
-        <div style="text-align: center;">
-          <button type="submit" class="pick" > Pick </button>
-        </div>
-        <table border="1" cellspacing="3" align="center" id="selecttable">
-            <caption>
-                <strong>
-        
-                </strong>
-            </caption>
-            <tr>
-                <td style="text-align:center; width: 10%;">Check Box</td>
-                <td style="text-align:center">Unit Code</td>
-                <td style="text-align:center">Unit Title</td>
-            </tr>
-            <%  if(unitInfo){
-            unitInfo.forEach(untInfo => { %>
-              <% if(untInfo.isAssigned == false  ) { %>
+          <table border="1" cellspacing="3" align="center" id="selecttable">
+              <caption>
+                  <strong>Available Units</strong>
+              </caption>
               <tr>
-                <td> <input type="checkbox" name="selected" value=" <%= untInfo.code %>|<%= untInfo.name %> "> </td>
-                <td>  <%= untInfo.code %> </td>
-                <td>  <%= untInfo.name %> </td>
+                  <td style="text-align:center; width: 10%;">Check Box</td>
+                  <td style="text-align:center">Unit Code</td>
+                  <td style="text-align:center">Unit Title</td>
               </tr>
-              <% } else { } %>
-            <% }) }else {%>
-              <p>Nothing to show</p>
-              <%}%>
+              <% 
+              let availableUnitsCount = 0; // Counter for available units
+              if (unitInfo) {
+                  unitInfo.forEach(untInfo => { 
+                      if (!untInfo.isAssigned) { // Check if unit is not assigned
+                          availableUnitsCount++; // Increment counter
+%>
+                          <tr>
+                              <td><input type="checkbox" class="unit-checkbox" name="selected" value="<%= untInfo.code %>|<%= untInfo.name %>" onchange="togglePickButton()"></td>
+                              <td><%= untInfo.code %></td>
+                              <td><%= untInfo.name %></td>
+                          </tr>
+<% 
+                      } 
+                  }); 
+              } else { 
+%>
+                  <p>Nothing to show</p>
+<% 
+              } 
+              %>
+          </table>
 
-        </table>
+          <% if (availableUnitsCount > 0) { %> <!-- Display count if there are available units -->
+              <p style="text-align: center;">Number of available units: <strong><%= availableUnitsCount %></strong></p>
+          <% } %>
+
+          <!-- Pick Button -->
+          <div style="text-align: center;">
+              <button id="pickButton" type="submit" class="pick" style="display: none; align-self: center; justify-self: center;">Pick Selected Unit(s)</button>
+          </div>
+
       </form>
-    </div>
+  </div>
 </div>
+
+<script>
+  // Function to toggle the visibility of the Pick button
+  function togglePickButton() {
+      const checkboxes = document.querySelectorAll('.unit-checkbox');
+      const pickButton = document.getElementById('pickButton');
+
+      // Check if any checkbox is selected
+      const isAnyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+      // Show or hide the button based on selection
+      pickButton.style.display = isAnyChecked ? 'block' : 'none';
+  }
+</script>
+
+
+
   <%- include('./partials/footer.ejs') %>
 </body>
 </html>

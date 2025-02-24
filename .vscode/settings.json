@@ -1,14 +1,15 @@
 {
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter"
-    },
-    "python.formatting.provider": "none",
-    "cSpell.words": [
-        "indexx",
-        "jsonify",
-        "lecid",
-        "pymongo",
-        "TTMS",
-        "unitss"
-    ]
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "python.formatting.provider": "none",
+  "cSpell.words": [
+    "indexx",
+    "jsonify",
+    "lecid",
+    "pymongo",
+    "TTGS",
+    "TTMS",
+    "unitss"
+  ]
 }

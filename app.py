@@ -1,203 +1,237 @@
 from flask import Flask, jsonify, redirect
-from pulp import *
-import pymongo
-# import mongoose
+from pymongo import MongoClient
+import random
+import numpy as np
+from sklearn.utils import shuffle
 
 app = Flask(__name__)
 
-# Establish a connection to the MongoDB database
-client = pymongo.MongoClient("mongodb://127.0.0.1:27017/")
-
-# Select the database and collection
-db = client["TTMS"]
+# MongoDB connection
+client = MongoClient("mongodb://127.0.0.1:27017/")
+db = client["TTGS"]
 unitsCollection = db["units"]
 lecturersCollection = db["lecturers"]
 timetableCollection = db["timetables"]
 classroomsCollection = db["classrooms"]
 
-# Define the classes for storing subject, lecturer, and classroom details
+# Constants
+DAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+PERIODS = ["1", "2", "3"]
+SEMESTERS = ["1", "2", "3", "4", "5", "6", "7", "8"]
+POPULATION_SIZE = 100
+GENERATIONS = 100
+MUTATION_RATE = 0.1
+
+
 class Unit:
-    def __init__(self, unitCode, unitName, semester, course, lecturer, classroom, substitute):
+    def __init__(
+        self, unitCode, unitName, semester, course, lecturer, classroom, substitute
+    ):
         self.unitCode = unitCode
         self.unitName = unitName
-        self.semester = semester
+        self.semester = semester  # Ensure this is a string
         self.course = course
         self.lecturer = lecturer
         self.classroom = classroom
         self.substitute = substitute
 
-class Lecturer:
-    def __init__(self, lecturerCode, lecturerName, days, room):
-        self.lecturerCode = lecturerCode
-        self.lecturerName = lecturerName
-        self.days = [days]#self.days = []
-        self.room = [room]#self.room = []
+
+def get_units():
+    units = []
+    for unit in unitsCollection.find():
+        # Debug print
+        print(f"Retrieved unit from DB: {unit}")
+        temp = Unit(
+            unitCode=unit["code"],
+            unitName=unit["name"],
+            semester=str(unit["semester"]),  # Convert to string explicitly
+            course=unit["course"],
+            lecturer=unit["lecturer"],
+            classroom=[],
+            substitute=unit["substitute"],
+        )
+        units.append(temp)
+    print(f"Total units retrieved: {len(units)}")
+    return units
+
 
 class Classroom:
     def __init__(self, classroomName, classroomCapacity):
         self.classroomName = classroomName
         self.classroomCapacity = classroomCapacity
 
-# Retrieve all units from the collection and store them in an array of Unit objects
-def get_units():
-    units = []
-    for unit in unitsCollection.find():
-        # Create a new Unit object for each unit fetched from the database
-        temp = Unit(
-            unitCode = unit["code"],
-            unitName = unit["name"],
-            semester = unit["semester"],
-            course = unit["course"],
-            lecturer = unit["lecturer"],
-            classroom = [],
-            substitute = unit["substitute"],
-        )
-        units.append(temp)
-    return units
 
-# Retrieve all lecturers from the collection and store them in an array of Lecturer objects
-def get_lecturers():
-    lecturers = []
-    for lecturer in lecturersCollection.find():
-        # Create a new Unit object for each unit fetched from the database
-        temp = Lecturer(
-            lecturerCode = lecturer["lecID"],
-            lecturerName = lecturer["name"],
-            days = [],
-            room = [],
-        )
-        lecturers.append(temp)
-    return lecturers
-
-# Retrieve all classrooms from the collection and store them in an array of Classroom objects
 def get_classrooms():
     classrooms = []
     for classroom in classroomsCollection.find():
         temp = Classroom(
-            classroomName = classroom["name"],
-            classroomCapacity = classroom["capacity"],
+            classroomName=classroom["name"],
+            classroomCapacity=classroom["capacity"],
         )
         classrooms.append(temp)
+    print(f"Total classrooms retrieved: {len(classrooms)}")
     return classrooms
 
-# ************************************************************************************* ROUTES **************************************************************************************************************
 
-@app.route('/', methods=['GET'])
-def indexx():
-    return redirect('/index', code=302)
+def generate_initial_timetable(units, classrooms):
+    if not units or not classrooms:
+        print("Warning: No units or classrooms available")
+        return []
 
-@app.route('/index', methods=['GET'])
-def hello_wrl():
-    return "Flask Server Running xx"
+    timetable = []
+    for unit in units:
+        day = random.choice(DAYS)
+        period = random.choice(PERIODS)
+        classroom = random.choice(classrooms)
+        timetable.append(
+            {"unit": unit, "day": day, "period": period, "classroom": classroom}
+        )
+    return timetable
 
-@app.route('/test', methods=['POST'])
-def hello():
-    return jsonify("Hello, Test Server Working")
 
-# Define the endpoint for generating the timetable
-@app.route('/timetable', methods=['POST'])
+def calculate_fitness(timetable):
+    if not timetable:
+        return float("-inf")
+
+    fitness_score = 0
+
+    # Check for lecturer clashes
+    for day in DAYS:
+        for period in PERIODS:
+            lecturers_at_time = []
+            for entry in timetable:
+                if entry["day"] == day and entry["period"] == period:
+                    lecturers_at_time.append(entry["unit"].lecturer)
+            fitness_score -= len(lecturers_at_time) - len(set(lecturers_at_time))
+
+    return fitness_score
+
+
+def genetic_algorithm(units, classrooms):
+    if not units or not classrooms:
+        print("Error: No units or classrooms available for timetable generation")
+        return []
+
+    # Generate initial population
+    population = [
+        generate_initial_timetable(units, classrooms) for _ in range(POPULATION_SIZE)
+    ]
+
+    best_timetable = None
+    best_fitness = float("-inf")
+
+    for generation in range(GENERATIONS):
+        # Calculate fitness for each timetable
+        fitness_scores = [calculate_fitness(timetable) for timetable in population]
+
+        # Track best solution
+        current_best_fitness = max(fitness_scores)
+        if current_best_fitness > best_fitness:
+            best_fitness = current_best_fitness
+            best_timetable = population[fitness_scores.index(current_best_fitness)]
+
+        print(f"Generation {generation}: Best fitness = {best_fitness}")
+
+        # Select best timetables
+        sorted_indices = np.argsort(fitness_scores)[::-1]
+        sorted_population = [population[i] for i in sorted_indices]
+
+        # Keep best solutions (elitism)
+        next_generation = sorted_population[: POPULATION_SIZE // 4]
+
+        # Generate new solutions through crossover and mutation
+        while len(next_generation) < POPULATION_SIZE:
+            parent1, parent2 = random.sample(
+                sorted_population[: POPULATION_SIZE // 2], 2
+            )
+            child = crossover(parent1, parent2)
+            child = mutate(child, classrooms)
+            next_generation.append(child)
+
+        population = next_generation
+
+    return best_timetable
+
+
+def crossover(parent1, parent2):
+    if not parent1 or not parent2:
+        return parent1 or parent2
+
+    crossover_point = random.randint(1, len(parent1) - 1)
+    child = parent1[:crossover_point] + parent2[crossover_point:]
+    return child
+
+
+def mutate(timetable, classrooms):
+    if not timetable:
+        return timetable
+
+    if random.random() < MUTATION_RATE:
+        entry_to_mutate = random.choice(timetable)
+        mutation_type = random.choice(["day", "period", "classroom"])
+
+        if mutation_type == "day":
+            entry_to_mutate["day"] = random.choice(DAYS)
+        elif mutation_type == "period":
+            entry_to_mutate["period"] = random.choice(PERIODS)
+        else:
+            entry_to_mutate["classroom"] = random.choice(classrooms)
+
+    return timetable
+
+
+@app.route("/", methods=["GET"])
+def index():
+    return redirect("/index", code=302)
+
+
+@app.route("/index", methods=["GET"])
+def hello_world():
+    return "Flask Server Running"
+
+
+@app.route("/timetable", methods=["POST"])
 def generateTimetable():
-    # Retrieve units, lecturers, and classrooms
     units = get_units()
-    lecturers = get_lecturers()
     classrooms = get_classrooms()
 
-    # Get the number of instances of the Unit class
-    # num_units = len(units)
+    if not units or not classrooms:
+        return jsonify({"error": "No units or classrooms found in database"})
 
-    # Get the number of instances of the Lecturer class
-    # num_lecturers = len(lecturers)
+    # Generate timetable using genetic algorithm
+    best_timetable = genetic_algorithm(units, classrooms)
 
-    # Get the number of instances of the Lecturer class
-    # num_classrooms = len(classrooms)
+    if not best_timetable:
+        return jsonify({"error": "Failed to generate timetable"})
 
-    # Define the variables
-    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-    periods = ['1','2','3']
-    semesters = ['1','2','3','4','5','6','7','8']
+    # Format the result for JSON response
+    formatted_timetable = []
+    for semester in SEMESTERS:
+        semester_schedule = {"semester": semester, "unitss": []}
 
-    # Define the problem
-    prob = LpProblem("Timetable Problem", LpMinimize)
+        # Debug print
+        print(f"Processing semester {semester}")
 
-    # Define the decision variables
-    assignments = LpVariable.dicts("Assignment", ((semester, unit, classroom, day, period) for semester in semesters for unit in units for classroom in classrooms for day in days for period in periods), cat='Binary')
+        for entry in best_timetable:
+            print(
+                f"Checking entry - Unit semester: {entry['unit'].semester}, Current semester: {semester}"
+            )
+            if str(entry["unit"].semester) == str(semester):  # Ensure string comparison
+                unit_data = {
+                    "unitCode": entry["unit"].unitCode,
+                    "unitName": entry["unit"].unitName,
+                    "unitLecturer": entry["unit"].lecturer,
+                    "classroom": entry["classroom"].classroomName,
+                    "day": entry["day"],
+                    "period": entry["period"],
+                }
+                semester_schedule["unitss"].append(unit_data)
+                print(f"Added unit to semester {semester}: {unit_data}")
 
-    # Define the objective function (minimize the number of empty slots)
-    prob += lpSum([assignments[(semester, unit, classroom, day, period)] for semester in semesters for unit in units for classroom in classrooms for day in days for period in periods])
+        formatted_timetable.append(semester_schedule)
 
-    # Add the constraints
-
-    #Each unit must be in its semester
-    for semester in semesters:
-        for unit in units:
-            if unit.semester != semester:
-                prob += lpSum([assignments[(semester, unit, classroom, day, period)] for classroom in classrooms for day in days for period in periods ]) == 0
-
-    # Each unit must be scheduled only once a week
-    for unit in units:
-        prob += lpSum([assignments[(semester, unit, classroom, day, period)] for classroom in classrooms for semester in semesters for period in periods for day in days]) == 1
-
-    # Each classroom can only be assigned to one slot per week
-    for classroom in classrooms:
-        for day in days:
-            for period in periods:
-                prob += lpSum([assignments[(semester, unit, classroom, day, period)] for semester in semesters for unit in units]) <= 1
-
-    # Each lecturer can only teach one class at a time
-    for day in days:
-        for period in periods:
-            for lecturer in lecturers:
-                prob += lpSum([assignments[(semester, unit, classroom, day, period)] for semester in semesters for unit in units if unit.lecturer == lecturer]) <= 1
-
-    # Each period can only have one unit
-    for day in days:
-        for period in periods:
-            for unit in units:
-                prob += lpSum([assignments[(semester, unit, classroom, day, period)] for semester in semesters for unit in units]) <= 1
-
-    # Each class can only take one unit at a time
-    for day in days:
-        for period in periods:
-            for classroom in classrooms:
-                prob += lpSum([assignments[(semester, unit, classroom, day, period)] for semester in semesters for unit in units]) <= 1
-
-    # Each classroom can only accommodate a limited number of learners
-    for classroom in classrooms:
-        for day in days:
-            for period in periods:
-                prob += lpSum([assignments[(semester, unit, classroom, day, period)] for semester in semesters for unit in units if classroom in unit.classroom]) <= 1000
-
-    # #no 2 units can have the same period
-    # for day in days:
-    #     for period in periods:
-    #         for unit1 in units:
-    #             for unit2 in units:
-    #                 if unit1 != unit2:
-    #                     prob += lpSum([assignments[(semester, unit1, classroom, day, period)] for semester in semesters for classroom in classrooms]) + lpSum([assignments[(semester, unit2, classroom, day, period)] for semester in semesters for classroom in classrooms]) <= 1
+    return jsonify(formatted_timetable)
 
 
-    # Solve the problem
-    prob.solve()
-
-    tt = []
-
-    for semester in semesters:
-        solution = {}
-        unitss = []
-        solution["semester"] = semester
-        for unit in units:
-            for classroom in classrooms:
-                for day in days:
-                    for period in periods:
-                        if value(assignments[(semester, unit, classroom, day, period)]) == 1:
-                            unitss = [*unitss, {"unitCode": unit.unitCode, "unitName": unit.unitName, "unitLecturer": unit.lecturer, "classroom": classroom.classroomName, "day": day, "period": period }]
-        
-        solution["unitss"] = unitss 
-        print(solution)
-        tt = [*tt, solution]
-    return jsonify(tt)
-
-
-
-
-app.run(host='0.0.0.0', port=5000, debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)

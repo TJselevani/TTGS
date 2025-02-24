@@ -124,13 +124,18 @@
     </div>
   </div>
 
+
+ 
+</div>
+
+
   <script>
     const del = document.querySelectorAll('a.drop');
     // console.log(del)
     del.forEach(d => {
 
       d.addEventListener('click', (e) => {
-      const endpoint = `/dropUnit/${d.dataset.doc}`;
+      const endpoint = `/lecturer/dropUnit/${d.dataset.doc}`;
 
       fetch(endpoint, {
         method: 'DELETE',
